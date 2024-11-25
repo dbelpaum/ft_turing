@@ -1,18 +1,18 @@
 type transition = {
-  read: char;
+  read: string;
   to_state: string;
-  write: char;
+  write: string;
   action: string;
 }
 
-type machine = {
+type turing_machine = {
   name: string;
-  alphabet: char list;
-  blank: char;
+  alphabet: string list;
+  blank: string;
   states: string list;
   initial: string;
   finals: string list;
   transitions: (string * transition list) list;
 }
 
-val simulate : machine -> string -> unit
+val parse_machine : string -> turing_machine

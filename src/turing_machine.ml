@@ -1,46 +1,44 @@
 open Yojson.Basic.Util
 
 type transition = {
-  read: char;
+  read: string;
   to_state: string;
-  write: char;
+  write: string;
   action: string;
 }
 
-type machine = {
+type turing_machine = {
   name: string;
-  alphabet: char list;
-  blank: char;
+  alphabet: string list;
+  blank: string;
   states: string list;
   initial: string;
   finals: string list;
   transitions: (string * transition list) list;
 }
 
-let simulate machine input =
-  (* Simulation logic will be implemented here *)
-  Printf.printf "Simulating machine: %s\n" machine.name
-
 let parse_machine jsonfile =
   (* Parse the JSON description and return a machine *)
   let json = Yojson.Basic.from_file jsonfile in
   {
-    name = json |> member "name" |> to_string;
-    alphabet = json |> member "alphabet" |> to_list |> filter_string |> List.map String.get 0;
-    blank = json |> member "blank" |> to_string |> String.get 0;
-    states = json |> member "states" |> to_list |> filter_string;
-    initial = json |> member "initial" |> to_string;
-    finals = json |> member "finals" |> to_list |> filter_string;
+    name = json |> Yojson.Basic.Util.member "name" |> Yojson.Basic.Util.to_string;
+    alphabet = json |> Yojson.Basic.Util.member "alphabet" |> Yojson.Basic.Util.to_list |> List.map Yojson.Basic.Util.to_string;
+    blank = json |> Yojson.Basic.Util.member "blank" |> Yojson.Basic.Util.to_string;
+    states = json |> Yojson.Basic.Util.member "states" |> Yojson.Basic.Util.to_list |> List.map Yojson.Basic.Util.to_string;
+    initial = json |> Yojson.Basic.Util.member "initial" |> Yojson.Basic.Util.to_string;
+    finals = json |> Yojson.Basic.Util.member "finals" |> Yojson.Basic.Util.to_list |> List.map Yojson.Basic.Util.to_string;
     transitions =
-      json |> member "transitions" |> to_assoc
+      json |> Yojson.Basic.Util.member "transitions" |> Yojson.Basic.Util.to_assoc
       |> List.map (fun (state, transitions) ->
-           (state, transitions |> to_list |> List.map (fun t ->
+           (state, transitions |> Yojson.Basic.Util.to_list |> List.map (fun t ->
              {
-               read = t |> member "read" |> to_string |> String.get 0;
-               to_state = t |> member "to_state" |> to_string;
-               write = t |> member "write" |> to_string |> String.get 0;
-               action = t |> member "action" |> to_string;
+               read = t |> Yojson.Basic.Util.member "read" |> Yojson.Basic.Util.to_string;
+               to_state = t |> Yojson.Basic.Util.member "to_state" |> Yojson.Basic.Util.to_string;
+               write = t |> Yojson.Basic.Util.member "write" |> Yojson.Basic.Util.to_string;
+               action = t |> Yojson.Basic.Util.member "action" |> Yojson.Basic.Util.to_string;
              }
            ))
          )
   }
+  
+  
