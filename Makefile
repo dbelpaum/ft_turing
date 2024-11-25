@@ -19,7 +19,7 @@ NATIVE_EXE		=	$(NAME)
 
 .PHONY: all build deps clean fclean re
 
-all: $(NATIVE_EXE)
+all: $(NATIVE_EXE) # TODO add install rule as dependance before submitting the project
 
 # Byte-code compilation
 $(BYTE_EXE): $(CMI_FILES) $(CMO_FILES)
