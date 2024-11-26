@@ -33,7 +33,7 @@ let print_usage () =
       let tape = Zipper.of_list input_list blank in
 
       (* Afficher l'état initial de la bande *)
-      Printf.printf "%s\n" (Zipper.to_string tape);
+      Printf.printf "%s\n" (Zipper.format_tape tape blank);
 
       (* Placeholder pour exécuter la machine de Turing *)
       print_endline "Machine execution not implemented yet.";

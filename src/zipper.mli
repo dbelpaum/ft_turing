@@ -22,5 +22,8 @@ val to_list : 'a t -> 'a list
 val to_string : char t -> string
 (** [to_string z] retourne une représentation sous forme de chaîne de caractères du zipper. *)
 
+val format_tape : char t -> char -> string
+(** [format_tape z blank] retourne une représentation sous forme de chaîne de caractères du zipper avec des cases vides représentées par [blank]. *)
+
 val of_list : 'a list -> 'a -> 'a t
 (** [of_list lst blank] initialise un zipper à partir d'une liste [lst] et d'une valeur blanche [blank]. *)

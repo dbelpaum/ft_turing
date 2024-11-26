@@ -37,6 +37,23 @@ let to_string z =
   let current = String.make 1 z.current in
   let right = String.concat "" (List.map (String.make 1) z.right) in
   Printf.sprintf "[%s<%s>%s]" left current right
+
+
+  let format_tape z blank =
+    let left = String.concat "" (List.map (String.make 1) (List.rev z.left)) in
+    let current = String.make 1 z.current in
+    let right = String.concat "" (List.map (String.make 1) z.right) in
+    let right_trimmed = if String.length right > 19 then
+        String.sub right 0 19
+      else
+        right
+    in
+    let right_blanks = if String.length right_trimmed < 20 then
+        String.make (19 - String.length right_trimmed) blank
+      else
+        ""
+    in
+    Printf.sprintf "[%s<%s>%s%s]" left current right_trimmed right_blanks
   
 
 (** [of_list lst blank] initialise un zipper à partir d'une liste [lst] et d'une valeur blanche [blank]. *)
