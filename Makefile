@@ -13,7 +13,7 @@ MLI_FILES		=	machine.mli	\
 					zipper.mli	\
 
 ML_SRCS			=	$(addprefix $(SRC_DIR)/, $(ML_FILES))
-MLI_SRCS		=	$(addprefix $(SRC_DIR)/, $(MLO_FILES))
+MLI_SRCS		=	$(addprefix $(SRC_DIR)/, $(MLI_FILES))
 CMI_FILES 		= $(MLI_SRCS:%.mli=%.cmi)
 CMO_FILES 		= $(ML_SRCS:%.ml=%.cmo)
 CMX_FILES 		= $(ML_SRCS:%.ml=%.cmx)
