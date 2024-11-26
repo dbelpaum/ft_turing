@@ -18,15 +18,27 @@ type turing_machine = {
 }
 
 let print_machine machine =
-		let print_list label lst =
-			Printf.printf "%s: [ %s ]\n" label (String.concat ", " lst)
-		in
-	
-		Printf.printf "********************************************************************************\n";
-		Printf.printf "*\n";
-		Printf.printf "* %s *\n" machine.name;
-		Printf.printf "*\n";
-		Printf.printf "********************************************************************************\n";
+    let print_list label lst =
+      Printf.printf "%s: [ %s ]\n" label (String.concat ", " lst)
+    in
+
+    let print_frame label =
+      let width = 80 in
+      let border = String.make width '*' in
+      let spacer = 
+        let padding = String.make (width - 2) ' ' in  (* Crée une ligne avec `width - 2` espaces *)
+        "*" ^ padding ^ "*"  (* Concatène le * de chaque côté de la chaîne d'espaces *)
+      in
+      let total_padding = width - String.length label - 2 in
+      let left_padding = total_padding / 2 in
+      let right_padding = total_padding - left_padding in
+      let padding_left = String.make left_padding ' ' in
+      let padding_right = String.make right_padding ' ' in
+      Printf.printf "%s\n%s\n*%s%s%s*\n%s\n%s\n" border spacer padding_left label padding_right spacer border    
+    in
+
+    (* Affichage de l'encadré principal avec le nom de la machine *)
+    print_frame machine.name;
 	
 		print_list "Alphabet" machine.alphabet;
 		print_list "States" machine.states;
