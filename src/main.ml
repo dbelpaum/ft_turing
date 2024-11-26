@@ -1,5 +1,6 @@
 open Machine
 open Parsing
+open Zipper
 
 let print_usage () =
   print_endline "Usage: ft_turing [-h] jsonfile input";
@@ -12,13 +13,29 @@ let print_usage () =
   print_endline "optional arguments:";
   print_endline "  -h, --help  show this help message and exit"
 
-let () =
+  let () =
   match Array.to_list Sys.argv with
   | [_; "-h"] | [_; "--help"] -> print_usage ()
   | [_; jsonfile; input] ->
-      (* Appeler la fonction parse_machine et print_machine *)
+      (* Charger la machine *)
       let machine = Parsing.parse_machine jsonfile in
+
+      (* Afficher la machine *)
       Machine.print_machine machine;
-      (* Pour l'instant, juste afficher l'entrée et JSON sans traitement supplémentaire *)
-      print_endline ("Running with input: " ^ input);
+
+      (* Convertir la chaîne input en une liste de caractères *)
+      let input_list = List.init (String.length input) (String.get input) in
+
+      (* Définir le caractère "blanc" pour le Zipper *)
+      let blank = String.get machine.blank 0 in
+
+      (* Initialiser le Zipper avec l'entrée *)
+      let tape = Zipper.of_list input_list blank in
+
+      (* Afficher l'état initial de la bande *)
+      Printf.printf "%s\n" (Zipper.format_tape tape blank);
+
+      (* Placeholder pour exécuter la machine de Turing *)
+      print_endline "Machine execution not implemented yet.";
   | _ -> print_usage ()
+

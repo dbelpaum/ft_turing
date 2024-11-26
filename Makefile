@@ -5,10 +5,12 @@ OCAMLOPT 		= ocamlfind ocamlopt
 SRC_DIR 		= src
 ML_FILES 		=	machine.ml	\
 					parsing.ml	\
+					zipper.ml	\
 					main.ml
 
 MLI_FILES		=	machine.mli	\
 					parsing.mli	\
+					zipper.mli	\
 
 ML_SRCS			=	$(addprefix $(SRC_DIR)/, $(ML_FILES))
 MLI_SRCS		=	$(addprefix $(SRC_DIR)/, $(MLO_FILES))
