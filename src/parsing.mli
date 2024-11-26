@@ -1,3 +1,3 @@
 open Machine
 
-val parse_machine : string -> turing_machine
+val parse_machine : string -> Types.turing_machine

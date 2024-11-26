@@ -1,5 +1,5 @@
 {
-	"name" : "unary_sub",
+	"name" : "unary sub",
 	"alphabet": [ "1", ".", "-", "=" ],
 	"blank" : ".",
 	"states" : [ "scanright", "eraseone", "subone", "skip", "HALT" ],
@@ -19,10 +19,6 @@
 		"subone": [
 			{ "read" : "1", "to_state": "subone", "write": "1", "action": "LEFT"},
 			{ "read" : "-", "to_state": "skip" , "write": "-", "action": "LEFT"}
-		],
-		"skip": [
-			{ "read" : ".", "to_state": "skip" , "write": ".", "action": "LEFT"},
-			{ "read" : "1", "to_state": "scanright", "write": ".", "action": "RIGHT"}
 		]
 	}
 }
