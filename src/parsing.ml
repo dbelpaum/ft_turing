@@ -1,21 +1,5 @@
 open Yojson.Basic.Util
-
-type transition = {
-  read: string;
-  to_state: string;
-  write: string;
-  action: string;
-}
-
-type turing_machine = {
-  name: string;
-  alphabet: string list;
-  blank: string;
-  states: string list;
-  initial: string;
-  finals: string list;
-  transitions: (string * transition list) list;
-}
+open Machine
 
 let parse_machine jsonfile =
   (* Parse the JSON description and return a machine *)
@@ -40,5 +24,3 @@ let parse_machine jsonfile =
            ))
          )
   }
-  
-  

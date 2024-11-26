@@ -15,4 +15,4 @@ type turing_machine = {
   transitions: (string * transition list) list;
 }
 
-val parse_machine : string -> turing_machine
+val print_machine : turing_machine -> unit

@@ -3,10 +3,12 @@ FLAGS 			= -package yojson -linkpkg -I $(SRC_DIR)
 OCAMLC 			= ocamlfind ocamlc
 OCAMLOPT 		= ocamlfind ocamlopt
 SRC_DIR 		= src
-ML_FILES 		=	main.ml	\
-					turing_machine.ml
+ML_FILES 		=	machine.ml	\
+					parsing.ml	\
+					main.ml
 
-MLI_FILES		=	turing_machine.mli
+MLI_FILES		=	machine.mli	\
+					parsing.mli	\
 
 ML_SRCS			=	$(addprefix $(SRC_DIR)/, $(ML_FILES))
 MLI_SRCS		=	$(addprefix $(SRC_DIR)/, $(MLO_FILES))
@@ -47,6 +49,7 @@ $(NATIVE_EXE): $(CMI_FILES) $(CMX_FILES)
 
 deps install:
 	opam install --deps-only .
+#	eval $(opam env)
 
 clean:
 	rm -f $(NAME) src/*.cm* src/*.o

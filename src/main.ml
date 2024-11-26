@@ -1,3 +1,6 @@
+open Machine
+open Parsing
+
 let print_usage () =
   print_endline "Usage: ft_turing [-h] jsonfile input";
   print_endline "";
@@ -13,7 +16,9 @@ let () =
   match Array.to_list Sys.argv with
   | [_; "-h"] | [_; "--help"] -> print_usage ()
   | [_; jsonfile; input] ->
-      (* Ici, appeler le simulateur avec jsonfile et input *)
-      print_endline ("Running with JSON file: " ^ jsonfile ^ " and input: " ^ input)
-  | _ ->
-      print_usage ()
+      (* Appeler la fonction parse_machine et print_machine *)
+      let machine = Parsing.parse_machine jsonfile in
+      Machine.print_machine machine;
+      (* Pour l'instant, juste afficher l'entrée et JSON sans traitement supplémentaire *)
+      print_endline ("Running with input: " ^ input);
+  | _ -> print_usage ()
