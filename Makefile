@@ -6,11 +6,13 @@ SRC_DIR 		= src
 ML_FILES 		=	machine.ml	\
 					parsing.ml	\
 					zipper.ml	\
+					execution.ml	\
 					main.ml
 
 MLI_FILES		=	machine.mli	\
 					parsing.mli	\
 					zipper.mli	\
+					execution.mli	\
 
 ML_SRCS			=	$(addprefix $(SRC_DIR)/, $(ML_FILES))
 MLI_SRCS		=	$(addprefix $(SRC_DIR)/, $(MLI_FILES))

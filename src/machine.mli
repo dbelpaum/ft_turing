@@ -7,8 +7,8 @@ type transition = {
 
 type turing_machine = {
   name: string;
-  alphabet: string list;
-  blank: string;
+  alphabet: char list;
+  blank: char;
   states: string list;
   initial: string;
   finals: string list;
