@@ -16,3 +16,7 @@ type turing_machine = {
   finals: string list;
   transitions: (string * transition list) list;
 }
+
+exception Parsing_error of string
+exception Input_error of string
+exception Infinite_loop of string

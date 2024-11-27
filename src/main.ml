@@ -2,6 +2,7 @@ open Machine
 open Parsing
 open Zipper
 open Execution
+open Types
 
 let print_usage () =
   print_endline "Usage: ft_turing [-h] jsonfile input";
@@ -22,7 +23,19 @@ let run_machine blank tape state machine =
   | [_; "-h"] | [_; "--help"] -> print_usage ()
   | [_; jsonfile; input] ->
       (* Charger la machine *)
-      let machine = Parsing.parse_machine jsonfile in
+      let machine =
+        try
+        Parsing.parse_machine jsonfile
+        with
+        | Parsing_error msg -> print_endline msg; exit 1
+      in
+
+      let input =
+        try
+        Parsing.parse_input input machine.alphabet machine.blank
+        with
+        | Input_error msg -> print_endline msg; exit 1
+      in
 
       (* Afficher la machine *)
       Machine.print_machine machine;
