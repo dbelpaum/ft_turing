@@ -15,8 +15,8 @@ let print_usage () =
   print_endline "optional arguments:";
   print_endline "  -h, --help  show this help message and exit"
 
-let run_machine blank tape state machine =
-  ignore (execute_machine blank tape state machine)
+let run_machine blank tape state machine set =
+  ignore (execute_machine blank tape state machine set)
 
   let () =
   match Array.to_list Sys.argv with
@@ -52,7 +52,7 @@ let run_machine blank tape state machine =
       (* Initialiser le Zipper avec l'entrée *)
       let tape = Zipper.of_list input_list blank in
 
-      run_machine blank tape machine.initial machine
+      run_machine blank tape machine.initial machine StateTapeSet.empty
 
   | _ -> print_usage ()
 

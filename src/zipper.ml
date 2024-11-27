@@ -1,10 +1,5 @@
 open Utils
-
-type zipper = {
-  left : string;   (* Partie gauche de la bande *)
-  right : string;  (* Partie droite de la bande *)
-  cursor : char;   (* Position du curseur sur la bande *)
-}
+open Types
 
 let make blank = { left = ""; cursor = blank; right = "" }
 
@@ -46,7 +41,12 @@ let format_tape z blank =
   in
   Printf.sprintf "[%s<%s>%s%s]" (reverse_string z.left) (String.make 1 z.cursor) right_trimmed right_blanks
 
+let get_tape_str z = Printf.sprintf "%s%c%s" (reverse_string z.left) z.cursor z.right
+
 let of_list lst blank =
   match lst with
   | [] -> make blank
   | h :: t -> { left = ""; cursor = h; right = String.concat "" (List.map (String.make 1) t) }
+
+let left_is_empty z = String.length z.left = 0
+let right_is_empty z = String.length z.right = 0
