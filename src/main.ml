@@ -1,6 +1,7 @@
 open Machine
 open Parsing
 open Zipper
+open Execution
 
 let print_usage () =
   print_endline "Usage: ft_turing [-h] jsonfile input";
@@ -33,9 +34,13 @@ let print_usage () =
       let tape = Zipper.of_list input_list blank in
 
       (* Afficher l'état initial de la bande *)
-      Printf.printf "%s\n" (Zipper.format_tape tape blank);
+
+
+      let final_tape = execute_machine blank tape machine.initial machine in
+      Printf.printf "%s\n" (Zipper.format_tape final_tape blank);
 
       (* Placeholder pour exécuter la machine de Turing *)
       print_endline "Machine execution not implemented yet.";
+      (* execute_machine machine tape; *)
   | _ -> print_usage ()
 

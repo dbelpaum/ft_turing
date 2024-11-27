@@ -45,6 +45,7 @@ let to_string z =
 
 (** [format_tape z blank] retourne une représentation sous forme de chaîne de caractères du zipper avec des cases vides représentées par [blank]. *)
 let format_tape z blank =
+  let left_rev = String.concat "" (List.map (String.make 1) (List.rev (List.of_seq (String.to_seq z.left)))) in
   let total_length = 20 in  (* Longueur totale de l'affichage *)
   let left_length = String.length z.left in
   let cursor_length = 1 in  (* La taille du curseur est 1 caractère *)
@@ -63,7 +64,7 @@ let format_tape z blank =
     else
       ""
   in
-  Printf.sprintf "[%s<%s>%s%s]" z.left (String.make 1 z.cursor) right_trimmed right_blanks
+  Printf.sprintf "[%s<%s>%s%s]" left_rev (String.make 1 z.cursor) right_trimmed right_blanks
 
 (** [of_list lst blank] initialise un zipper à partir d'une liste [lst] et d'une valeur blanche [blank]. *)
 let of_list lst blank =

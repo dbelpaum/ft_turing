@@ -7,12 +7,14 @@ ML_FILES 		=	types.ml	\
 					machine.ml	\
 					parsing.ml	\
 					zipper.ml	\
+					execution.ml	\
 					main.ml
 
 MLI_FILES		=	types.mli 	\
 					machine.mli	\
 					parsing.mli	\
 					zipper.mli	\
+					execution.mli	\
 
 
 
