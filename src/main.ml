@@ -28,6 +28,9 @@ let run_machine blank tape state machine =
         Parsing.parse_machine jsonfile
         with
         | Parsing_error msg -> print_endline msg; exit 1
+        | Yojson.Basic.Util.Type_error (msg, _) ->  (* Remarque : le second argument correspond à la position de l'erreur *)
+        Printf.eprintf "JSON format error: %s\n" msg;
+        exit 1
       in
 
       let input =
