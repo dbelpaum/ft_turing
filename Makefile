@@ -3,19 +3,20 @@ FLAGS 			= -package yojson -linkpkg -I $(SRC_DIR)
 OCAMLC 			= ocamlfind ocamlc
 OCAMLOPT 		= ocamlfind ocamlopt
 SRC_DIR 		= src
-ML_FILES 		=	types.ml	\
+ML_FILES 		=	utils.ml	\
+					types.ml	\
 					machine.ml	\
 					parsing.ml	\
 					zipper.ml	\
+					execution.ml	\
 					main.ml
 
-MLI_FILES		=	types.mli 	\
+MLI_FILES		=	utils.mli	\
+					types.mli 	\
 					machine.mli	\
 					parsing.mli	\
 					zipper.mli	\
-
-
-
+					execution.mli	\
 
 ML_SRCS			=	$(addprefix $(SRC_DIR)/, $(ML_FILES))
 MLI_SRCS		=	$(addprefix $(SRC_DIR)/, $(MLI_FILES))
