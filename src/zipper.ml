@@ -16,8 +16,8 @@ let move_left blank z =
   if String.length z.left = 0 then
     { left = ""; cursor = blank; right = (String.make 1 z.cursor) ^ z.right }
   else
-    let left_char = String.sub z.left (String.length z.left - 1) 1 in
-    let new_left = String.sub z.left 0 (String.length z.left - 1) in
+    let left_char = String.sub z.left 0 1 in
+    let new_left = String.sub z.left 1 (String.length z.left - 1) in
     { left = new_left; cursor = left_char.[0]; right = (String.make 1 z.cursor) ^ z.right }
 
 let move_right blank z =
