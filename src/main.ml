@@ -14,6 +14,9 @@ let print_usage () =
   print_endline "optional arguments:";
   print_endline "  -h, --help  show this help message and exit"
 
+let run_machine blank tape state machine =
+  ignore (execute_machine blank tape state machine)
+
   let () =
   match Array.to_list Sys.argv with
   | [_; "-h"] | [_; "--help"] -> print_usage ()
@@ -33,8 +36,7 @@ let print_usage () =
       (* Initialiser le Zipper avec l'entrée *)
       let tape = Zipper.of_list input_list blank in
 
-      let final_tape = execute_machine blank tape machine.initial machine in
-      Printf.printf "%s\n" (Zipper.format_tape final_tape blank);
+      run_machine blank tape machine.initial machine
 
   | _ -> print_usage ()
 
