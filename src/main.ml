@@ -28,19 +28,13 @@ let print_usage () =
       let input_list = List.init (String.length input) (String.get input) in
 
       (* Définir le caractère "blanc" pour le Zipper *)
-      let blank = String.get machine.blank 0 in
+      let blank = machine.blank in
 
       (* Initialiser le Zipper avec l'entrée *)
       let tape = Zipper.of_list input_list blank in
 
-      (* Afficher l'état initial de la bande *)
-
-
       let final_tape = execute_machine blank tape machine.initial machine in
       Printf.printf "%s\n" (Zipper.format_tape final_tape blank);
 
-      (* Placeholder pour exécuter la machine de Turing *)
-      print_endline "Machine execution not implemented yet.";
-      (* execute_machine machine tape; *)
   | _ -> print_usage ()
 
