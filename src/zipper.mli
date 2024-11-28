@@ -1,4 +1,4 @@
-type zipper
+open Types
 
 val make : char -> zipper
 
@@ -12,4 +12,10 @@ val move_right : char -> zipper -> zipper
 
 val format_tape : zipper -> char -> string
 
+val get_tape_str : zipper -> string
+
 val of_list : char list -> char -> zipper
+
+val left_is_empty : zipper -> bool
+
+val right_is_empty : zipper -> bool

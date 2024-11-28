@@ -1,10 +1,5 @@
 open Utils
-
-type zipper = {
-  left : string;   (* Partie gauche de la bande *)
-  right : string;  (* Partie droite de la bande *)
-  cursor : char;   (* Position du curseur sur la bande *)
-}
+open Types
 
 let make blank = { left = ""; cursor = blank; right = "" }
 
@@ -29,24 +24,35 @@ let move_right blank z =
     { left = (String.make 1 z.cursor) ^ z.left; cursor = right_char.[0]; right = new_right }
 
 let format_tape z blank =
-  let total_length = 19 in
   let left_length = String.length z.left in
-  let right_trimmed_length = total_length - left_length in
+  let right_length = String.length z.right in
+  let total_length = 9 in
 
-  let right_trimmed = if String.length z.right > right_trimmed_length then
-      String.sub z.right 0 right_trimmed_length
+  (* S'assurer que left est toujours de 9 caractères, avec des blanks si nécessaire *)
+  let left_trimmed = 
+    if left_length >= total_length then
+      String.sub z.left (left_length - total_length) total_length
     else
-      z.right
+      String.make (total_length - left_length) blank ^ z.left
   in
 
-  let right_blanks = if String.length right_trimmed < right_trimmed_length then
-      String.make (right_trimmed_length - String.length right_trimmed) blank
+  (* S'assurer que right est toujours de 9 caractères, avec des blanks si nécessaire *)
+  let right_trimmed =
+    if right_length >= total_length then
+      String.sub z.right 0 total_length
     else
-      ""
+      z.right ^ String.make (total_length - right_length) blank
   in
-  Printf.sprintf "[%s<%s>%s%s]" (reverse_string z.left) (String.make 1 z.cursor) right_trimmed right_blanks
+
+  Printf.sprintf "[%s<%s>%s]" left_trimmed (String.make 1 z.cursor) right_trimmed
+
+    
+let get_tape_str z = Printf.sprintf "%s%c%s" (reverse_string z.left) z.cursor z.right
 
 let of_list lst blank =
   match lst with
   | [] -> make blank
   | h :: t -> { left = ""; cursor = h; right = String.concat "" (List.map (String.make 1) t) }
+
+let left_is_empty z = String.length z.left = 0
+let right_is_empty z = String.length z.right = 0
