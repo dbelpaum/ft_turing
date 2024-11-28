@@ -57,7 +57,7 @@ $(NATIVE_EXE): $(CMI_FILES) $(CMX_FILES)
 
 deps install:
 	opam install --deps-only .
-#	eval $(opam env)
+	eval $(opam env)
 
 clean:
 	rm -f $(NAME) src/*.cm* src/*.o

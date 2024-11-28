@@ -31,9 +31,9 @@ let format_tape z blank =
   (* S'assurer que left est toujours de 9 caractères, avec des blanks si nécessaire *)
   let left_trimmed = 
     if left_length >= total_length then
-      String.sub z.left (left_length - total_length) total_length
+      String.sub (reverse_string z.left) (left_length - total_length) total_length
     else
-      String.make (total_length - left_length) blank ^ z.left
+      String.make (total_length - left_length) blank ^ (reverse_string z.left)
   in
 
   (* S'assurer que right est toujours de 9 caractères, avec des blanks si nécessaire *)
@@ -47,7 +47,7 @@ let format_tape z blank =
   Printf.sprintf "[%s<%s>%s]" left_trimmed (String.make 1 z.cursor) right_trimmed
 
     
-let get_tape_str z = Printf.sprintf "%s%c%s" (reverse_string z.left) z.cursor z.right
+let get_tape_str z = Printf.sprintf "%s%c%s" z.left z.cursor z.right
 
 let of_list lst blank =
   match lst with

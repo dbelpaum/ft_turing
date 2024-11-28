@@ -27,9 +27,18 @@ let pad_tape tape blank padding_size =
   in
   { tape with left = padded_left; right = padded_right }
 
+let check_dead_end transition state tape =
+	if transition.to_state != state then
+		false
+	else (
+		match transition.action with
+		| Left -> left_is_empty tape
+		| Right -> right_is_empty tape
+	)
 
 
 let rec execute_machine blank tape state machine visited =
+  (* print_visited visited; *)
   (* Appliquer le padding à la bande avant de vérifier *)
   let padded_tape = pad_tape tape blank padding_size in
   let current_pair = (state, padded_tape) in
@@ -44,27 +53,29 @@ let rec execute_machine blank tape state machine visited =
     if List.mem state machine.finals then
       tape
     else (
-      (* Affichage de l'état actuel et de la bande *)
-      Printf.printf "%s " (Zipper.format_tape tape blank);
-      let current_char = current tape in
-      (* Récupérer les transitions pour l'état courant *)
-      let transitions = List.assoc state machine.transitions in
-      (* Trouver la transition correspondant au symbole sous le curseur *)
-      let transition = List.find (fun t -> t.read = current_char) transitions in
+		(* Affichage de l'état actuel et de la bande *)
+		Printf.printf "%s " (Zipper.format_tape tape blank);
+		let current_char = current tape in
+		(* Récupérer les transitions pour l'état courant *)
+		let transitions = List.assoc state machine.transitions in
+		(* Trouver la transition correspondant au symbole sous le curseur *)
+		let transition = List.find (fun t -> t.read = current_char) transitions in
 
-      (* Écrire le nouveau symbole sur la bande *)
-      let new_tape = write transition.write tape in
-      (* Déplacer le curseur *)
-      let new_tape = match transition.action with
-        | Left -> move_left blank new_tape
-        | Right -> move_right blank new_tape
-      in
-      (* Affichage de la transition *)
-      Printf.printf "(%s, %c) -> (%s, %c, %s)\n"
-        state current_char transition.to_state transition.write (direction_to_string transition.action);
-      
-      (* Appel récursif avec la nouvelle bande et l'état suivant *)
-      execute_machine blank new_tape transition.to_state machine visited
+		(* Écrire le nouveau symbole sur la bande *)
+		let new_tape = write transition.write tape in
+		(* Déplacer le curseur *)
+		let new_tape = match transition.action with
+			| Left -> move_left blank new_tape
+			| Right -> move_right blank new_tape
+		in
+		(* Affichage de la transition *)
+		Printf.printf "(%s, %c) -> (%s, %c, %s)\n"
+			state current_char transition.to_state transition.write (direction_to_string transition.action);
+
+		(* Check si on est pas dans une impasse *)
+		if (current_char = blank && check_dead_end transition state new_tape) then
+			failwith "Dead end detected!"
+		else
+		(* Appel récursif avec la nouvelle bande et l'état suivant *)
+			execute_machine blank new_tape transition.to_state machine visited
     )
-  
-    
