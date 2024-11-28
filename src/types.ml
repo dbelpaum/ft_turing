@@ -1,3 +1,5 @@
+let padding_size = 100
+
 type direction = Left | Right
 
 type transition = {

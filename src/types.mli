@@ -1,3 +1,5 @@
+val padding_size : int
+
 type direction = Left | Right
 
 type transition = {
