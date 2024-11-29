@@ -1,6 +1,6 @@
 # ft_turing 🔢
 
-<img src="https://i.imgur.com/QLa3TGh.gif" style="width: 100%; height: auto;" />
+<img src="https://i.imgur.com/vgyZCRW.gif" style="width: 100%; height: auto;" />
 
 ## 📝 Description
 This project is a Turing machine simulator written in [OCaml](https://en.wikipedia.org/wiki/OCaml).
