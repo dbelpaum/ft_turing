@@ -214,7 +214,9 @@ let parse_machine jsonfile =
   }
 
 let parse_input input alphabet blank =
-  if not (List.for_all (fun c -> List.mem c alphabet) (List.init (String.length input) (String.get input))) then
+  if String.length input = 0 then
+    raise (Input_error "Input is empty")
+  else if not (List.for_all (fun c -> List.mem c alphabet) (List.init (String.length input) (String.get input))) then
     raise (Input_error "Input contains symbols not in the alphabet")
   else if String.contains input blank then
     raise (Input_error "Input contains the blank symbol")
