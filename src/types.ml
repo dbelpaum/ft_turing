@@ -42,3 +42,4 @@ end)
 exception Parsing_error of string
 exception Input_error of string
 exception Infinite_loop of string
+exception Read_Not_Found of string

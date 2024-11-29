@@ -45,7 +45,7 @@ let rec execute_machine blank tape state machine visited =
 
   (* Vérifier si la paire (state, tape) existe déjà dans visited *)
   if StateTapeSet.mem current_pair visited then
-    failwith "Infinite loop detected!"
+    raise (Infinite_loop "Infinite loop detected")
   else
     (* Ajouter la paire (state, tape) à visited *)
     let visited = StateTapeSet.add current_pair visited in
@@ -59,6 +59,9 @@ let rec execute_machine blank tape state machine visited =
 		(* Récupérer les transitions pour l'état courant *)
 		let transitions = List.assoc state machine.transitions in
 		(* Trouver la transition correspondant au symbole sous le curseur *)
+
+    if not (List.exists (fun t -> t.read = current_char) transitions) then
+      raise (Read_Not_Found "No transition found for the current symbol");
 		let transition = List.find (fun t -> t.read = current_char) transitions in
 
 		(* Écrire le nouveau symbole sur la bande *)
@@ -74,7 +77,7 @@ let rec execute_machine blank tape state machine visited =
 
 		(* Check si on est pas dans une impasse *)
 		if (current_char = blank && check_dead_end transition state new_tape) then
-			failwith "Dead end detected!"
+			raise (Infinite_loop "Dead end detected")
 		else
 		(* Appel récursif avec la nouvelle bande et l'état suivant *)
 			execute_machine blank new_tape transition.to_state machine visited
